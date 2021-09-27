@@ -23,7 +23,7 @@ public class UserController {
 	 * delete - delete */
 	
 	@GetMapping("/{userId}")
-	public ResponseEntity<UserResponseDto> searchUser(@PathVariable final String userId) {
+	public ResponseEntity<UserResponseDto> searchUser(@PathVariable final Long userId) {
 		User user = userService.searchUser(userId);
 		if(user!=null) {
 			return ResponseEntity.ok(
@@ -43,4 +43,11 @@ public class UserController {
                 new UserResponseDto(userService.createUser(userCreateRequestDto.toEntity()))
         );
 	}
+	
+	@DeleteMapping("/{userId}")
+    public ResponseEntity<Void> deleteClub(
+            @PathVariable Long userId) {
+        userService.deleteUser(userId);
+        return new ResponseEntity("user deleted", HttpStatus.OK);
+    }
 }
