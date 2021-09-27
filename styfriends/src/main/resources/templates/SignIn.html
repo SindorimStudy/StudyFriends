@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  
+>
+<link th:href="@{/css/signin.css}" rel="stylesheet" type="text/css">
+	<head>
+        <title>Shop Homepage - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <!-- <link rel="icon" type="image/x-icon" href="assets/favicon.ico" /> -->
+        <th:block th:replace="fragments/config::configFragment"></th:block>
+    </head>
+	<body>
+		<!-- header -->
+		<header th:replace="fragments/header::headerFragment"></header>
+		
+        <!-- Section-->
+        <section class="py-5">
+           <h2>Login</h2>
+		    <p>페이지를 보려면 로그인 해야 합니다.</p>
+		    <ul>
+		        <li>
+		            <a href="javascript:;" class="btn_social" data-social="google">구글 로그인</a><br/>
+		        </li>
+		        <li>
+		            <a href="javascript:;" class="btn_social" data-social="naver">네이버 로그인</a><br/>
+		        </li>
+		        <li>
+		            <a href="javascript:;" class="btn_social" data-social="kakao">카카오 로그인</a><br/>
+		        </li>
+		        
+		    </ul>
+		  </form>
+        </section>
+        
+        <!-- Footer-->
+		<footer th:replace="fragments/footer::footerFragment"></footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+   		<script>
+        let socials = document.getElementsByClassName("btn_social");
+        for (let social of socials) {
+            social.addEventListener('click', function () {
+                let socialType = this.getAttribute('data-social');
+                location.href="/oauth2/authorization/" + socialType;
+            })
+        }
+    </script>
+    </body>
+</html>

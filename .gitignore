@@ -17,7 +17,7 @@ local.properties
 **/MANIFEST.MF
 .classpath
 .project
-pom.properties
+**/pom.properties
 # Mac
 .DS_Store
 
