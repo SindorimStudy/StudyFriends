@@ -14,8 +14,13 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 	
-	public User searchUser(String userId) {
+	public User searchUser(Long userId) {
 		User user = userRepository.findById(userId).orElse(null);
+		return user;
+	}
+	
+	public User searchUserByEmail(String email) {
+		User user = userRepository.findByEmail(email).orElse(null);
 		return user;
 	}
 	
@@ -31,7 +36,7 @@ public class UserService {
 		return userRepository.save(user);
 	}
 	
-	public boolean deleteUser(String userId) {
+	public boolean deleteUser(Long userId) {
 		User user = userRepository.findById(userId).orElse(null);
 		if (user != null) {
 			userRepository.delete(user);
@@ -39,4 +44,4 @@ public class UserService {
 		}
 		return false;
 	}
-}
+}	

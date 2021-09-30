@@ -17,12 +17,11 @@ import lombok.ToString;
 @ToString
 @Table(name="user")
 @Getter
-public class User {
+public class User extends BaseTime {
 	
 	@Id
-	@GeneratedValue(generator = "USER_GENERATOR")
-	@GenericGenerator(name = "USER_GENERATOR", strategy = "uuid")
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@Column(nullable = false)
 	private String name;
@@ -37,7 +36,7 @@ public class User {
 	private boolean is_admin;
 	
 	@Builder
-	public User(final String id, final String name, final String email, final String password, final boolean is_admin) {
+	public User(final Long id, final String name, final String email, final String password, final boolean is_admin) {
 		this.id = id;
 		this.name = name;
 		this.password = password;

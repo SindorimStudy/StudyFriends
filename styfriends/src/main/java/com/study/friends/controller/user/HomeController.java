@@ -10,5 +10,14 @@ public class HomeController {
     public String index() {
         return "index";
     }
+    @RequestMapping(value="/signin")
+    public String signin() {
+        return "Signin";
+    }
+    
+    @RequestMapping(value="/login")
+    public String login() {
+        return "login";
+    }
 
 }
