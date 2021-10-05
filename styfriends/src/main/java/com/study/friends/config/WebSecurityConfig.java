@@ -13,7 +13,8 @@ import lombok.AllArgsConstructor;
 @EnableWebSecurity
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+	private final CustomOAuthUserService customOAuthUserService;
+
 	@Override
     public void configure(WebSecurity webSecurity) throws Exception {
         // static 디렉터리의 하위 파일 목록은 인증 무시 ( = 항상통과 )
@@ -30,11 +31,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.permitAll()
 		// 인증된 사용자만 접근 가능
 		.anyRequest().authenticated()
-		.and().oauth2Login()
 		.and().exceptionHandling()
 		// 인증 없이 페이지에 접근할 경우 리다이렉트
 		.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/signin"))
-		.and().logout().logoutSuccessUrl("/");
+		.and().logout().logoutSuccessUrl("/")
+		.and().oauth2Login().userInfoEndpoint().userService(customOAuthUserService);
 	}
 
 }
