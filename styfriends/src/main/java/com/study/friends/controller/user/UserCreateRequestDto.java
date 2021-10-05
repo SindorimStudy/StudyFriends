@@ -1,5 +1,6 @@
 package com.study.friends.controller.user;
 
+import com.study.friends.domain.Role;
 import com.study.friends.domain.User;
 import lombok.*;
 
@@ -12,15 +13,16 @@ public class UserCreateRequestDto {
 	private String name;
 	private String password;
 	private String email;
-	private boolean is_admin;
+	private String picture;
+	private Role role;
 	
 	public User toEntity(){
         return User.builder()
-                .id(id)
                 .name(name)
                 .email(email)
                 .password(password)
-                .is_admin(is_admin)
+				.picture(picture)
+                .role(role)
                 .build();
     }
 }
