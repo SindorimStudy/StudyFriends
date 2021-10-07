@@ -1,4 +1,4 @@
-package com.study.friends.config;
+package com.study.friends.config.auth;
 
 
 import com.study.friends.domain.User;

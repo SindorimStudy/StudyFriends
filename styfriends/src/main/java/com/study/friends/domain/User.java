@@ -26,7 +26,7 @@ public class User extends BaseTime {
 	@Column(nullable = false)
 	private String name;
 	
-	@Column(nullable = false)
+	@Column
 	private String password;
 	
 	@Column(nullable = false)
