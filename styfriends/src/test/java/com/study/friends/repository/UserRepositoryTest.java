@@ -1,4 +1,5 @@
 package com.study.friends.repository;
+import com.study.friends.domain.Role;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,9 @@ public class UserRepositoryTest extends StyfriendsApplicationTests{
 		String name = "test";
 		String email = "test";
 		String password = "test";
-		boolean is_admin = false;
+		Role role = Role.USER;
 		
-		User user = new User().builder().email(email).password(password).name(name).is_admin(is_admin).build();
+		User user = new User().builder().email(email).password(password).name(name).role(role).build();
 		userService.createUser(user);
 	}
 	
@@ -26,6 +27,7 @@ public class UserRepositoryTest extends StyfriendsApplicationTests{
 	public void searchById() {
 		User user = userService.searchUser(1L);
 		System.out.println(user);
+		System.out.println(user.getRoleKey());
 	}
 	
 	@Test
