@@ -16,7 +16,14 @@
                                 <li><a class="dropdown-item" href="#!">스터디</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="#!">커뮤니티</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                                <th:block th:if="${user!=null}">
+                                    <li><a href="/" class="dropdown-item">Mypage</a></li>
+                                    <li><a href="/logout" class="dropdown-item">Logout</a></li>
+                                </th:block>
+                                <th:block th:unless="${user!=null}">
+                                <li><a href="/signin" class="dropdown-item">Signin</a></li>
+                                <li><a href="/login" class="dropdown-item">Login</a></li>
+                                </th:block>
                             </ul>
                         </li>
                     </ul>
