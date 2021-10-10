@@ -1,16 +1,27 @@
 package com.study.friends.repository;
 import com.study.friends.domain.Role;
+import org.junit.After;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.study.friends.StyfriendsApplicationTests;
 import com.study.friends.domain.User;
 import com.study.friends.service.UserService;
+import org.springframework.test.context.junit4.SpringRunner;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class UserRepositoryTest extends StyfriendsApplicationTests{
 	@Autowired
 	private UserService userService;
+	private UserRepository userRepository;
+
+	@After
+	public void cleanup() {
+		userRepository.deleteAll();
+	}
 	
 	@Test
 	public void create() {	
@@ -26,21 +37,20 @@ public class UserRepositoryTest extends StyfriendsApplicationTests{
 	@Test
 	public void searchById() {
 		User user = userService.searchUser(1L);
-		System.out.println(user);
-		System.out.println(user.getRoleKey());
+		assertThat(user.getRole(),is(Role.USER));
 	}
 	
 	@Test
 	public void searchByEmail() {
 		User user = userService.searchUserByEmail("test");
-		System.out.println(user);
+		assertThat(user.getName(),is("test"));
 	}
 	
 	@Test
 	@Order(4)
 	public void delete() {
 		User user = userService.searchUser(1L);
-		System.out.println(userService.deleteUser(user.getId()));
+		assertThat(userService.deleteUser(user.getId()),is(true));
 	}
 
 }
