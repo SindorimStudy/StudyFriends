@@ -43,7 +43,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.anyRequest().authenticated()
 		.and().exceptionHandling()
 		// 인증 없이 페이지에 접근할 경우 리다이렉트
-				// TODO: naver oauth 로그인 후 signin으로 감,, redirect url 찾아서 permitall에 추가
 		.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/signin"))
 		.and().logout().logoutSuccessUrl("/")
 		.and().oauth2Login().defaultSuccessUrl("/").userInfoEndpoint().userService(customOAuthUserService);

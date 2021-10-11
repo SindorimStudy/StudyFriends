@@ -51,7 +51,7 @@ public class OAuthAttributes {
                 .email((String) response.get("email"))
                 .picture((String) response.get("profile_image"))
                 .attributes(response)
-                .nameAttributeKey(userNameAttributeName)
+                .nameAttributeKey("id")
                 .build();
     }
     public static OAuthAttributes ofKakao(String userNameAttributeName, Map<String,Object> attributes) {
