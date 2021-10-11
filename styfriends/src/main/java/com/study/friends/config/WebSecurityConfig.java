@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 @EnableWebSecurity
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
 	private final CustomOAuthUserService customOAuthUserService;
 
 	@Bean
@@ -30,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         webSecurity.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
 				.and().ignoring().mvcMatchers("/image/**");
     }
+
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception{
@@ -46,6 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/signin"))
 		.and().logout().logoutSuccessUrl("/")
 		.and().oauth2Login().defaultSuccessUrl("/").userInfoEndpoint().userService(customOAuthUserService);
-	}
 
+	}
 }
