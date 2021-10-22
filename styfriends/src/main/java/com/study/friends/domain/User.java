@@ -26,21 +26,34 @@ public class User extends BaseTime {
 	@Column(nullable = false)
 	private String name;
 	
-	@Column(nullable = false)
+	@Column
 	private String password;
 	
 	@Column(nullable = false)
 	private String email;
-	
+
 	@Column
-	private boolean is_admin;
+	private String picture;
+
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Role role;
 	
 	@Builder
-	public User(final Long id, final String name, final String email, final String password, final boolean is_admin) {
-		this.id = id;
+	public User(final String name, final String email, final String password, final String picture, Role role) {
 		this.name = name;
 		this.password = password;
 		this.email = email;
-		this.is_admin = is_admin;
+		this.picture = picture;
+		this.role = role;
+	}
+	public User update(String name,String picture){
+		this.name = name;
+		this.picture = picture;
+		return this;
+	}
+
+	public String getRoleKey(){
+		return this.role.getKey();
 	}
 }
