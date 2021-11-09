@@ -3,12 +3,18 @@ package com.study.friends.controller.user;
 import com.study.friends.controller.user.request.UserCreateRequestDto;
 import com.study.friends.controller.user.request.UserLoginRequestDto;
 import com.study.friends.controller.user.response.UserResponseDto;
+import com.study.friends.utils.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.study.friends.service.UserService;
 import com.study.friends.domain.User;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -36,13 +42,19 @@ public class UserController {
 	}
 
 	@PostMapping
-	public ResponseEntity<UserResponseDto> createUser(@RequestBody final UserCreateRequestDto userCreateRequestDto) {
-		final User user = userService.searchUser(userCreateRequestDto.toEntity().getId());
-		if (user != null) return ResponseEntity.ok(
-				new UserResponseDto(userService.searchUser(userCreateRequestDto.toEntity().getId()))
-		);
+	public ResponseEntity<?> createUser(@Validated  @RequestBody final UserCreateRequestDto userCreateRequestDto, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			List<String> errors = bindingResult.getAllErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.toList());
+			// 404 request
+			return ResponseEntity.ok(new ErrorResponse("404", "Validation failure", errors));
+		}
+		final User user = userService.searchUserByEmail(userCreateRequestDto.toEntity().getEmail());
+		if(user==null) {
+			return ResponseEntity.ok(
+					new UserResponseDto(userService.createUser(userCreateRequestDto.toEntity())));
+		}
 		return ResponseEntity.ok(
-				new UserResponseDto(userService.createUser(userCreateRequestDto.toEntity()))
+				new UserResponseDto(userService.searchUserByEmail(userCreateRequestDto.toEntity().getEmail()))
 		);
 	}
 
