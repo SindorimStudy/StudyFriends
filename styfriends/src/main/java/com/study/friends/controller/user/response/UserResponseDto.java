@@ -1,4 +1,4 @@
-package com.study.friends.controller.user;
+package com.study.friends.controller.user.response;
 
 import org.springframework.beans.BeanUtils;
 import com.study.friends.domain.User;

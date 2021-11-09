@@ -1,4 +1,4 @@
-package com.study.friends.controller.user;
+package com.study.friends.controller.user.request;
 
 import com.study.friends.domain.Role;
 import com.study.friends.domain.User;
